@@ -13,10 +13,17 @@ spec:
         app: frontend
     spec:
       containers:
-      - name: frontend
-        image: abarna20/notes-frontend:1.0
-        ports:
-        - containerPort: 80
+        - name: frontend
+          image: abarna20/notes-frontend:1.0
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: html
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: html
+          configMap:
+            name: frontend-html
 ---
 apiVersion: v1
 kind: Service
@@ -26,7 +33,7 @@ spec:
   selector:
     app: frontend
   ports:
-    - protocol: TCP
-      port: 80
+    - port: 80
       targetPort: 80
-  type: NodePort   # to access from host machine
+  type: NodePort
+
