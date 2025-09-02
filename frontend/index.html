@@ -10,7 +10,7 @@
   <ul id="list"></ul>
 
   <script>
-    const API = "http://backend-service:3000/api/notes";
+    const API = "/api/notes";
     async function loadNotes() {
       const res = await fetch(API);
       const notes = await res.json();
